@@ -2,6 +2,7 @@ import cube3x3
 
 cube = cube3x3.cube()
 stack = [[] for i in range(35)]
+loaded = []
 
 
 def to_int(val):
@@ -42,7 +43,13 @@ def to_char(num:int):
     if num == 32:
         return ","
  
+
+def load(num):
+    global cube, stack, loaded
+    loaded = stack[num]
+
 def write_to_stack():
+    global cube, stack
     #overwrite
     if cube.cube["w"]["edge"][1] == "w":
         length = to_int(cube.cube["w"]["corner"][2])
@@ -120,10 +127,12 @@ def actions():
         print_cube()
     if cube.cube["w"]["corner"][1] == "y":
         write_to_stack()
+    if cube.cube["w"]["corner"][1] == "r":
+        load()
 
 
 
-def main_loop():
+def terminal():
     global cube
     print(cube)
     while True:
@@ -141,5 +150,5 @@ def main_loop():
         print(cube)
         
 
-main_loop()
+terminal()
 #print(to_int("yw"))
